@@ -68,6 +68,7 @@ function buttonAnimation(currentKey) {
   var activeButton = document.querySelector("." + currentKey.charAt(0));
   activeButton.classList.add("pressed");
 
+  //remove class from classList
   setTimeout(function() {
     activeButton.classList.remove("pressed");
   }, 100);
