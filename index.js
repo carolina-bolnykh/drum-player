@@ -1,93 +1,75 @@
-for(var i = 0; i < document.querySelectorAll(".drum").length; i++){
-  document.querySelectorAll("button")[i].addEventListener("click", onClick);
+var numberOfDrumButtons = document.querySelectorAll(".drum").length;
+
+for (var i = 0; i < numberOfDrumButtons; i++) {
+
+  document.querySelectorAll(".drum")[i].addEventListener("click", function() {
+
+    makeSound(this.className);
+
+    buttonAnimation(this.className);
+
+  });
+
 }
 
-function onClick(){
-  var classOfButton = this.className;
+document.addEventListener("keypress", function(event) {
 
-  switch (classOfButton) {
-    case "w drum":
-      var tom1 = new Audio('sounds/tom-1.mp3');
+  makeSound(event.key);
+
+  buttonAnimation(event.key);
+
+});
+
+
+function makeSound(key) {
+//adding 2 classes to each, (letter) AND "drum"
+  switch (key.charAt(0)) {
+    case "w":
+      var tom1 = new Audio("sounds/tom-1.mp3");
       tom1.play();
       break;
 
-    case "a drum":
-      var tom2 = new Audio('sounds/tom-2.mp3');
+    case "a":
+      var tom2 = new Audio("sounds/tom-2.mp3");
       tom2.play();
-    break;
+      break;
 
-    case "s drum":
+    case "s":
       var tom3 = new Audio('sounds/tom-3.mp3');
       tom3.play();
-    break;
+      break;
 
-    case "d drum":
+    case "d":
       var tom4 = new Audio('sounds/tom-4.mp3');
       tom4.play();
-    break;
+      break;
 
-    case "j drum":
+    case "j":
       var snare = new Audio('sounds/snare.mp3');
       snare.play();
-    break;
+      break;
 
-    case "k drum":
+    case "k":
       var crash = new Audio('sounds/crash.mp3');
       crash.play();
-    break;
+      break;
 
-    case "l drum":
+    case "l":
       var kick = new Audio('sounds/kick-bass.mp3');
       kick.play();
-    break;
+      break;
 
-    default: console.log(classOfButton);
+    default: console.log(key);
   }
+}
 
-  //detecting keyboard press
-  document.addEventListener("keydown", function(event) {
-      makeSound(event.key);
-    });
-  }
 
-  function makeSound(key){
-    switch (key) {
-      case "w":
-        var tom1 = new Audio('sounds/tom-1.mp3');
-        tom1.play();
-        break;
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey.charAt(0));
+  activeButton.classList.add("pressed");
 
-      case "a":
-        var tom2 = new Audio('sounds/tom-2.mp3');
-        tom2.play();
-      break;
-
-      case "s":
-        var tom3 = new Audio('sounds/tom-3.mp3');
-        tom3.play();
-      break;
-
-      case "d":
-        var tom4 = new Audio('sounds/tom-4.mp3');
-        tom4.play();
-      break;
-
-      case "j":
-        var snare = new Audio('sounds/snare.mp3');
-        snare.play();
-      break;
-
-      case "k":
-        var crash = new Audio('sounds/crash.mp3');
-        crash.play();
-      break;
-
-      case "l":
-        var kick = new Audio('sounds/kick-bass.mp3');
-        kick.play();
-      break;
-
-      default:;
-  }
+  setTimeout(function() {
+    activeButton.classList.remove("pressed");
+  }, 100);
 
 }
